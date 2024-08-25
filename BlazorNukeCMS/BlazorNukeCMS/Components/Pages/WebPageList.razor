@@ -1,0 +1,29 @@
+﻿@page "/webpages"
+@inject WebPageService WebPageService
+@using BlazorNukeCMS.Models
+@using BlazorNukeCMS.Services
+
+<h3>Web Page List</h3>
+
+@if (webPages == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var myPage in webPages)
+        {
+            <li>@myPage.Title - @myPage.Url</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Models.WebPage> webPages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        webPages = await WebPageService.GetWebPagesAsync();
+    }
+}
